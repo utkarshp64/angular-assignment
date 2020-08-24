@@ -1,0 +1,69 @@
+<mat-toolbar color="primary">
+  <span>Subscription Application</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button (click)="appService.navigate('/profile')">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card>
+  <mat-card-title>
+    Users Subscriptions
+  </mat-card-title>
+  <mat-card-content>
+    <p *ngIf="subscription.length == 0">Look like currently you don't have any subscriptions</p>
+    <div *ngIf="subscription.length > 0">
+      <ng-container *ngFor="let item of subscription; let index = index;">
+        <mat-card *ngIf="item.status === 'active'" style="width: 300px;margin-top: 10px;">
+          <mat-card-title>
+            <h3>Name: {{item?.name}}</h3>
+          </mat-card-title>
+          <mat-card-content>
+            <div class="heading">PRICE_ID: {{item?.price_id}}</div>
+            <div class="heading">Product ID: {{item?.product_id}}</div>
+            <div class="heading">STATUS: {{item?.status}}</div>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button (click)="cancel(item)">Cancel Subscription</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card *ngIf="item.status === 'canceled'" style="width: 300px; margin-top: 10px;">
+          <mat-card-title>
+            <h3>Name: {{item?.name}}</h3>
+          </mat-card-title>
+          <mat-card-content>
+            <div class="heading">PRICE_ID: {{item?.price_id}}</div>
+            <div class="heading">Product ID: {{item?.product_id}}</div>
+            <div class="heading">STATUS: {{item?.status}}</div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div style="margin: 20px">
+  <mat-divider></mat-divider>
+</div>
+
+<mat-card>
+  <mat-card-title>
+    List of available Subscriptions
+  </mat-card-title>
+  <mat-card-content>
+    <mat-selection-list #product [multiple]="false"
+                        (selectionChange)="onSelection($event, product?.selectedOptions?.selected[0]?.value)">
+      <ng-container *ngFor="let item of products">
+        <mat-list-option [value]="item" [disabled]="item?.subs">
+          <div>{{item?.metadata?.nickname + ' - ' + (item?.unit_amount / 100) + ' INR'}}</div>
+        </mat-list-option>
+      </ng-container>
+    </mat-selection-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button [disabled]="!isSelected" mat-raised-button (click)="openDialog()" color="primary">Subscribe</button>
+  </mat-card-actions>
+</mat-card>

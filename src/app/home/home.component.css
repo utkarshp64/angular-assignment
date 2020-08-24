@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-card-actions{
+  margin: 0px 10px;
+}
+
+.mat-card-content.heading {
+  margin-top: 2px;
+}

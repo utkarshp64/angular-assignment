@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Payment for {{selectedProduct| uppercase}} Subscription</h1>
+<form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill" class="example-full-width">
+      <mat-label>Card Number</mat-label>
+      <input matInput formControlName="card_number" required>
+    </mat-form-field>
+    <br>
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Exp. Month</mat-label>
+            <input matInput placeholder="MM" formControlName="exp_month" required maxlength="2">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Exp. Year</mat-label>
+            <input matInput placeholder="YYYY" formControlName="exp_year" required maxlength="4">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>CVV</mat-label>
+            <input matInput maxlength="4" minlength="3" placeholder="CVV" formControlName="cvv_number" required>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div mat-dialog-actions>
+    <button [disabled]="cardForm.invalid" type="submit" mat-raised-button color="primary">Pay</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</form>
+
